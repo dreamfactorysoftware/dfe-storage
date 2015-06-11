@@ -4,7 +4,6 @@ use DreamFactory\Enterprise\Common\Contracts\StorageMounter;
 use DreamFactory\Enterprise\Common\Managers\BaseManager;
 use DreamFactory\Enterprise\Storage\Exceptions\MountException;
 use DreamFactory\Library\Utility\IfSet;
-use GrahamCampbell\Flysystem\Facades\Flysystem;
 use League\Flysystem\Filesystem;
 
 class MountManager extends BaseManager implements StorageMounter
@@ -41,7 +40,7 @@ class MountManager extends BaseManager implements StorageMounter
                 throw new MountException('No configuration found or specified for mount "' . $name . '".');
             }
 
-            $_config = $options;
+            $_config = [];
         }
 
         //  Check for "path" or "root" in config...
@@ -66,10 +65,10 @@ class MountManager extends BaseManager implements StorageMounter
             }
         }
 
-        config(['flysystem.connections.' . $_tag => $_config]);
+        config(['flysystem.connections.' . $_tag => array_merge($_config, $options)]);
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $this->manage($_tag, $_filesystem = Flysystem::connection($_tag));
+        $this->manage($_tag, $_filesystem = \Flysystem::connection($_tag));
 
         return $_filesystem;
     }
