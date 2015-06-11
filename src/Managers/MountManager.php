@@ -35,7 +35,7 @@ class MountManager extends BaseManager implements StorageMounter
         }
 
         //  See if we have a pre-defined connection
-        if (null === ($_config = config('flysystem.connections.' . $_tag))) {
+        if (null === ($_config = config('flysystem.connections.' . $name))) {
             if (empty($options)) {
                 throw new MountException('No configuration found or specified for mount "' . $name . '".');
             }
@@ -43,7 +43,7 @@ class MountManager extends BaseManager implements StorageMounter
             $_config = [];
         }
 
-        \Log::info('[MountManager] flysystem tag "' . $_tag . '" pulled with config: ' . print_r($_config, true));
+        \Log::info('[MountManager] flysystem tag "' . $name . '" pulled with config: ' . print_r($_config, true));
 
         //  Check for "path" or "root" in config...
         if (null === ($_path = IfSet::get($_config, 'path')) && null === ($_path = IfSet::get($_config, 'root'))) {
