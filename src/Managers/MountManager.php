@@ -41,7 +41,7 @@ class MountManager extends BaseManager implements StorageMounter
                 throw new MountException('No configuration found or specified for mount "' . $name . '".');
             }
 
-            $_config = [];
+            $_config = $options;
         }
 
         //  Check for "path" or "root" in config...
@@ -66,13 +66,10 @@ class MountManager extends BaseManager implements StorageMounter
             }
         }
 
-        config(['flysystem.connections.' . $_tag => array_merge($_config, $options)]);
+        config(['flysystem.connections.' . $_tag => $_config]);
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $this->manage(
-            $_tag,
-            $_filesystem = Flysystem::connection($_tag)
-        );
+        $this->manage($_tag, $_filesystem = Flysystem::connection($_tag));
 
         return $_filesystem;
     }
