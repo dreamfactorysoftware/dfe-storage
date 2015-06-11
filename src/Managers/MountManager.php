@@ -45,6 +45,7 @@ class MountManager extends BaseManager implements StorageMounter
 
         //  Check for "path" or "root" in config...
         if (null === ($_path = IfSet::get($_config, 'path')) && null === ($_path = IfSet::get($_config, 'root'))) {
+            \Log::debug('config is: ' . print_r($_config, true));
             throw new \InvalidArgumentException('No "path" or "root" defined for mount "' . $name . '"');
         }
 
