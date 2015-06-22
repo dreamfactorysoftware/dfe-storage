@@ -3,7 +3,9 @@
 use DreamFactory\Enterprise\Common\Contracts\StorageMounter;
 use DreamFactory\Enterprise\Common\Managers\BaseManager;
 use DreamFactory\Enterprise\Storage\Exceptions\MountException;
+use DreamFactory\Enterprise\Storage\Providers\MountServiceProvider;
 use DreamFactory\Library\Utility\IfSet;
+use DreamFactory\Library\Utility\Json;
 use League\Flysystem\Filesystem;
 
 class MountManager extends BaseManager implements StorageMounter
@@ -12,11 +14,21 @@ class MountManager extends BaseManager implements StorageMounter
     //* Methods
     //******************************************************************************
 
+    /** @inheritdoc */
+    public function boot()
+    {
+        if (empty($this->lumberjackPrefix)) {
+            $this->setLumberjackPrefix(MountServiceProvider::IOC_NAME);
+        }
+
+        parent::boot();
+    }
+
     /**
      * Mount the filesystem "$name" as defined in "config/flysystem.php"
      *
      * @param string $name
-     * @param array $options
+     * @param array  $options
      *
      * @return Filesystem
      * @throws \DreamFactory\Enterprise\Storage\Exceptions\MountException
@@ -43,7 +55,7 @@ class MountManager extends BaseManager implements StorageMounter
             $_config = [];
         }
 
-        \Log::info('[MountManager] flysystem tag "' . $name . '" pulled with config: ' . print_r($_config, true));
+        $this->debug('flysystem tag "' . $name . '" pulled with config: ' . Json::encode($_config));
 
         //  Check for "path" or "root" in config...
         if (null === ($_path = IfSet::get($_config, 'path')) && null === ($_path = IfSet::get($_config, 'root'))) {
@@ -80,7 +92,7 @@ class MountManager extends BaseManager implements StorageMounter
      * Unmount the filesystem "$name" as defined in "config/flysystem.php"
      *
      * @param string $name
-     * @param array $options
+     * @param array  $options
      *
      * @return StorageMounter
      */
