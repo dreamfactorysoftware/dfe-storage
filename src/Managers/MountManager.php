@@ -35,9 +35,9 @@ class MountManager extends BaseManager implements StorageMounter
      */
     public function mount($name, $options = [])
     {
-        $_tag = str_replace('.', '-', IfSet::get($options, 'tag', $name));
+        $_tag = str_replace('.', '-', array_get($options, 'tag', $name));
 
-        if (null !== ($_prefix = IfSet::get($options, 'prefix'))) {
+        if (null !== ($_prefix = array_get($options, 'prefix'))) {
             $_prefix = rtrim($_prefix) . DIRECTORY_SEPARATOR;
         }
 
@@ -55,10 +55,10 @@ class MountManager extends BaseManager implements StorageMounter
             $_config = [];
         }
 
-        $this->debug('flysystem tag "' . $name . '" pulled with config: ' . Json::encode($_config));
+        //$this->debug('flysystem tag "' . $name . '" pulled with config: ' . Json::encode($_config));
 
         //  Check for "path" or "root" in config...
-        if (null === ($_path = IfSet::get($_config, 'path')) && null === ($_path = IfSet::get($_config, 'root'))) {
+        if (null === ($_path = array_get($_config, 'path')) && null === ($_path = array_get($_config, 'root'))) {
             \Log::debug('config is: ' . print_r($_config, true));
             throw new \InvalidArgumentException('No "path" or "root" defined for mount "' . $name . '"');
         }
