@@ -4,6 +4,7 @@ use DreamFactory\Enterprise\Common\Contracts\StorageMounter;
 use DreamFactory\Enterprise\Common\Managers\BaseManager;
 use DreamFactory\Enterprise\Storage\Exceptions\MountException;
 use DreamFactory\Enterprise\Storage\Providers\MountServiceProvider;
+use GrahamCampbell\Flysystem\Facades\Flysystem;
 use League\Flysystem\Filesystem;
 
 class MountManager extends BaseManager implements StorageMounter
@@ -81,7 +82,7 @@ class MountManager extends BaseManager implements StorageMounter
         config(['flysystem.connections.' . $_tag => array_merge($_config, $options)]);
 
         /** @noinspection PhpUndefinedMethodInspection */
-        $this->manage($_tag, $_filesystem = \Flysystem::connection($_tag));
+        $this->manage($_tag, $_filesystem = Flysystem::connection($_tag));
 
         return $_filesystem;
     }
