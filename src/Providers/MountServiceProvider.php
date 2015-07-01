@@ -30,9 +30,8 @@ class MountServiceProvider extends BaseServiceProvider
     {
         $this->singleton(
             static::IOC_NAME,
-            function ( $app )
-            {
-                return new MountManager( $app );
+            function ($app) {
+                return new MountManager($app);
             }
         );
     }

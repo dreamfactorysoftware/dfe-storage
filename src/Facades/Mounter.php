@@ -6,8 +6,8 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static Filesystem mount( string $name, $options = [] )
- * @method static MountManager unmount( string $name, $options = [] )
+ * @method static Filesystem mount(string $name, $options = [])
+ * @method static MountManager unmount(string $name, $options = [])
  */
 class Mounter extends Facade
 {
