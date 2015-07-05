@@ -34,15 +34,16 @@ class MountManager extends BaseManager implements StorageMounter
      */
     public function mount($name, $options = [])
     {
-        $_tag = str_replace('.', '-', array_get($options, 'tag', $name));
+        $options['tag'] = $_tag = str_replace('.', '-', array_get($options, 'tag', $name));
 
         if (null !== ($_prefix = array_get($options, 'prefix'))) {
-            $_prefix = rtrim($_prefix) . DIRECTORY_SEPARATOR;
+            $options['prefix'] = $_prefix = rtrim($_prefix) . DIRECTORY_SEPARATOR;
         }
 
         try {
             return $this->resolve($_tag);
         } catch (\InvalidArgumentException $_ex) {
+            //  Ignored
         }
 
         //  See if we have a pre-defined connection
@@ -51,25 +52,27 @@ class MountManager extends BaseManager implements StorageMounter
                 throw new MountException('No configuration found or specified for mount "' . $name . '".');
             }
 
+            //  Default to []
             $_config = [];
         }
 
-        //$this->debug('flysystem tag "' . $name . '" pulled with config: ' . Json::encode($_config));
-
-        //  Check for "path" or "root" in config...
+        //  See if we actually have a config
         if (null === ($_path = array_get($_config, 'path')) && null === ($_path = array_get($_config, 'root'))) {
-            \Log::debug('config is: ' . print_r($_config, true));
             throw new \InvalidArgumentException('No "path" or "root" defined for mount "' . $name . '"');
         }
 
+        //  Our path
+        $_config['path'] = $_path;
+
+        //  Only path wanted in final config...
         if (isset($_config['root'])) {
             unset($_config['root']);
         }
 
-        $_config['path'] = $_path;
+        //  No driver, use default
+        !isset($_config['driver']) && $_config['driver'] = config('flysystem.default');
 
-        !isset($_config['driver']) && $_config['driver'] = 'local';
-
+        //  Make sure the path doesn't already have the prefix...
         if (!empty($_prefix)) {
             $_path = rtrim($_config['path'], DIRECTORY_SEPARATOR);
             $_prefix = trim($_prefix, ' ' . DIRECTORY_SEPARATOR);
@@ -79,6 +82,7 @@ class MountManager extends BaseManager implements StorageMounter
             }
         }
 
+        //  Create a config entry for this dynamic flysystem
         config(['flysystem.connections.' . $_tag => array_merge($_config, $options)]);
 
         /** @noinspection PhpUndefinedMethodInspection */
