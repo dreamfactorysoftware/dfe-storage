@@ -28,12 +28,10 @@ class MountServiceProvider extends BaseServiceProvider
      */
     public function register()
     {
-        $this->singleton(
-            static::IOC_NAME,
-            function ($app) {
+        $this->singleton(static::IOC_NAME,
+            function ($app){
                 return new MountManager($app);
-            }
-        );
+            });
     }
 
 }

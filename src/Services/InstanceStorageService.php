@@ -124,10 +124,6 @@ class InstanceStorageService extends BaseService
         return $_path;
     }
 
-    /*------------------------------------------------------------------------------*/
-    /* Standard Paths                                                               */
-    /*------------------------------------------------------------------------------*/
-
     /**
      * Given an instance, return an absolute path to "/storage"
      *
@@ -228,10 +224,6 @@ class InstanceStorageService extends BaseService
         return is_dir($workPath) && Disk::rmdir($workPath, true);
     }
 
-    /*------------------------------------------------------------------------------*/
-    /* Mounts                                                                       */
-    /*------------------------------------------------------------------------------*/
-
     /**
      * @param string|array|null $append
      * @param bool              $create If true, create when non-existent
@@ -313,10 +305,6 @@ class InstanceStorageService extends BaseService
             $this->getOwnerPrivatePath($instance),
             $tag ?: 'owner-private-storage:' . $instance->instance_id_text);
     }
-
-    /*------------------------------------------------------------------------------*/
-    /* Service methods                                                               */
-    /*------------------------------------------------------------------------------*/
 
     /**
      * Returns the proper storage zone for this location
@@ -422,10 +410,6 @@ class InstanceStorageService extends BaseService
     {
         return Disk::segment(array_only($this->map, ['zone', 'partition', 'root-hash']), $leading, $separator);
     }
-
-    /*------------------------------------------------------------------------------*/
-    /* Properties                                                                   */
-    /*------------------------------------------------------------------------------*/
 
     /**
      * Clears the storage map

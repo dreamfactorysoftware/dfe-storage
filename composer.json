@@ -25,17 +25,14 @@
     },
     {
       "type": "vcs",
-      "url":  "https://github.com/dreamfactorysoftware/dfe-storage.git"
-    },
-    {
-      "type": "vcs",
       "url":  "https://github.com/dreamfactorysoftware/dfe-common.git"
     }
   ],
   "minimum-stability": "dev",
+  "prefer-stable":     true,
   "require":           {
-    "dreamfactory/dfe-database": "dev-develop as dev-master",
-    "dreamfactory/dfe-common":   "dev-develop as dev-master"
+    "dreamfactory/dfe-database": "1.0.*",
+    "dreamfactory/dfe-common":   "1.0.*"
   },
   "require-dev":       {
     "phpunit/phpunit":             "@stable",
@@ -54,7 +51,7 @@
   },
   "extra":             {
     "branch-alias": {
-      "dev-develop": "0.1.x-dev"
+      "dev-develop": "1.0.x-dev"
     }
   }
 }
