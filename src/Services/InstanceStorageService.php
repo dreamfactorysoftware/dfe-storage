@@ -377,7 +377,7 @@ class InstanceStorageService extends BaseService
         $_hashBase = $hashBase ?: $this->hashBase;
 
         if (empty($_hashBase) || GuestLocations::LOCAL == $this->guestLocation) {
-            logger('[dfe.instance-storage-service:buildStorageMap] hash-base unset, cannot map storage.', $this->instance ? $this->instance->toArray() : []);
+            //logger('[dfe.instance-storage-service:buildStorageMap] hash-base unset, cannot map storage.', $this->instance ? $this->instance->toArray() : []);
             $this->clearMap();
 
             return false;
