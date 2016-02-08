@@ -71,8 +71,7 @@ class InstanceStorageService extends BaseService
         null === $this->guestLocation && $this->setGuestLocation(GuestLocations::DFE_CLUSTER);
 
         //  and private path name
-        null === $this->privatePathName &&
-        $this->privatePathName = trim(config('provisioning.private-path-name', EnterpriseDefaults::PRIVATE_PATH_NAME),
+        null === $this->privatePathName && $this->privatePathName = trim(config('provisioning.private-path-name', EnterpriseDefaults::PRIVATE_PATH_NAME),
             DIRECTORY_SEPARATOR . ' ');
     }
 
@@ -88,9 +87,7 @@ class InstanceStorageService extends BaseService
     {
         static $_path;
 
-        return $_path
-            ?: $_path =
-                Disk::path([config('snapshot.trash-path', EnterpriseDefaults::DEFAULT_TRASH_PATH), $append], $create);
+        return $_path ?: $_path = Disk::path([config('snapshot.trash-path', EnterpriseDefaults::DEFAULT_TRASH_PATH), $append], $create);
     }
 
     /**
@@ -362,9 +359,7 @@ class InstanceStorageService extends BaseService
         empty($this->hashBase) && $this->buildStorageMap($instance->user->storage_id_text);
 
         if (!$_mount) {
-            throw new \RuntimeException('The web server "' .
-                $instance->webServer->server_id_text .
-                '" does not have a mount defined.');
+            throw new \RuntimeException('The web server "' . $instance->webServer->server_id_text . '" does not have a mount defined.');
         }
 
         return $_mount->getFilesystem($path, $tag, $options);
@@ -382,7 +377,7 @@ class InstanceStorageService extends BaseService
         $_hashBase = $hashBase ?: $this->hashBase;
 
         if (empty($_hashBase) || GuestLocations::LOCAL == $this->guestLocation) {
-            logger('No hash-base set in storage service. Stand-alone instance implied.');
+            //logger('[dfe.instance-storage-service:buildStorageMap] hash-base unset, cannot map storage.', $this->instance ? $this->instance->toArray() : []);
             $this->clearMap();
 
             return false;
