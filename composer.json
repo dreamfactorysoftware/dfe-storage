@@ -31,16 +31,14 @@
     "prefer-stable":     false,
     "minimum-stability": "dev",
     "require":           {
-        "dreamfactory/dfe-common": "dev-feature/l52-upgrade as master"
+        "graham-campbell/flysystem":   "^3.0",
+        "league/flysystem-ziparchive": "~1.0",
+        "dreamfactory/dfe-common":     "dev-feature/l52-upgrade as master"
     },
     "require-dev":       {
-        "dreamfactory/dfe-database":   "dev-feature/l52-upgrade as master",
-        "laravel/framework":           "5.2.*",
-        "symfony/dom-crawler":         "~3.0",
-        "symfony/css-selector":        "~3.0",
-        "graham-campbell/flysystem":   "~2.1",
-        "league/flysystem-ziparchive": "~1.0",
-        "phpunit/phpunit":             "~4.0"
+        "dreamfactory/dfe-database": "dev-feature/l52-upgrade as master",
+        "laravel/framework":         "5.2.*",
+        "phpunit/phpunit":           "~4.0"
     },
     "autoload":          {
         "psr-4": {
