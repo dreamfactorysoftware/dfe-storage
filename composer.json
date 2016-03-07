@@ -28,8 +28,8 @@
             "url":  "https://github.com/dreamfactorysoftware/dfe-common.git"
         }
     ],
+    "prefer-stable":     false,
     "minimum-stability": "dev",
-    "prefer-stable":     true,
     "require":           {
         "dreamfactory/dfe-database": "dev-feature/l52-upgrade as master",
         "dreamfactory/dfe-common":   "dev-feature/l52-upgrade as master"
