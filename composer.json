@@ -28,15 +28,15 @@
             "url":  "https://github.com/dreamfactorysoftware/dfe-common.git"
         }
     ],
-    "prefer-stable":     false,
+    "prefer-stable":     true,
     "minimum-stability": "dev",
     "require":           {
         "graham-campbell/flysystem":   "^3.0",
         "league/flysystem-ziparchive": "~1.0",
-        "dreamfactory/dfe-common":     "dev-feature/l52-upgrade as master"
+        "dreamfactory/dfe-common":     "1.0.*"
     },
     "require-dev":       {
-        "dreamfactory/dfe-database": "dev-feature/l52-upgrade as master",
+        "dreamfactory/dfe-database": "1.0.*",
         "laravel/framework":         "5.2.*",
         "phpunit/phpunit":           "~4.0"
     },
