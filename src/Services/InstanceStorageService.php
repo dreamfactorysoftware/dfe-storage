@@ -154,6 +154,22 @@ class InstanceStorageService extends BaseService
     }
 
     /**
+     * We want the package path of the instance to point to the user's private package area
+     *
+     * @param \DreamFactory\Enterprise\Database\Models\Instance $instance
+     * @param string|null                                       $append
+     * @param bool                                              $create
+     *
+     * @return string
+     */
+    public function getPackagePath(Instance $instance, $append = null, $create = false)
+    {
+        $this->buildStorageMap($instance->user->storage_id_text);
+
+        return Disk::path([$this->getStoragePath($instance), $this->privatePathName, config('provisioning.package-path-name'), $append], $create);
+    }
+
+    /**
      * We want the private path of the instance to point to the user's area. Instances have no "private path" per se.
      *
      * @param \DreamFactory\Enterprise\Database\Models\Instance $instance
@@ -288,6 +304,19 @@ class InstanceStorageService extends BaseService
         return $this->mount($instance,
             $this->getPrivatePath($instance),
             $tag ?: 'private-storage:' . $instance->instance_id_text);
+    }
+
+    /**
+     * @param \DreamFactory\Enterprise\Database\Models\Instance $instance
+     * @param string                                            $tag
+     *
+     * @return \League\Flysystem\Filesystem
+     */
+    public function getPackageStorageMount(Instance $instance, $tag = null)
+    {
+        return $this->mount($instance,
+            $this->getPackagePath($instance),
+            $tag ?: 'package-storage:' . $instance->instance_id_text);
     }
 
     /**
