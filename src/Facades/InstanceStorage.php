@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Facade;
 use League\Flysystem\Filesystem;
 
 /**
+ * @see \DreamFactory\Enterprise\Storage\Services\InstanceStorageService
+ *
  * @method static string|bool buildStorageMap($hashBase = null)
  * @method static InstanceStorageService setInstance(Instance $instance)
  * @method static string getPrivatePathName()
@@ -14,6 +16,7 @@ use League\Flysystem\Filesystem;
  * @method static string getTrashPath($append = null, $create = true)
  * @method static string getStoragePath(Instance $instance, $append = null, $create = false)
  * @method static string getPrivatePath(Instance $instance, $append = null, $create = false)
+ * @method static string getPackagePath(Instance $instance, $append = null, $create = false)
  * @method static string getOwnerPrivatePath(Instance $instance, $append = null, $create = false)
  * @method static string getSnapshotPath(Instance $instance, $append = null, $create = false)
  * @method static string getWorkPath(Instance $instance, $append = null)
@@ -22,6 +25,7 @@ use League\Flysystem\Filesystem;
  * @method static Filesystem getStorageRootMount(Instance $instance, $tag = 'storage-root:instance-id')
  * @method static Filesystem getStorageMount(Instance $instance, $tag = 'storage:instance-id')
  * @method static Filesystem getPrivateStorageMount(Instance $instance, $tag = 'private:instance-id')
+ * @method static Filesystem getPackageStorageMount(Instance $instance, $tag = 'private:instance-id')
  * @method static Filesystem getOwnerPrivateStorageMount(Instance $instance, $tag = 'owner-private:instance-id')
  * @method static Filesystem getSnapshotMount(Instance $instance, $tag = 'snapshot:instance-id')
  */
