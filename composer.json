@@ -33,10 +33,10 @@
     "require":           {
         "graham-campbell/flysystem":   "^3.0",
         "league/flysystem-ziparchive": "~1.0",
-        "dreamfactory/dfe-common":     "1.0.*"
+        "dreamfactory/dfe-common":     "1.1.*"
     },
     "require-dev":       {
-        "dreamfactory/dfe-database": "1.0.*",
+        "dreamfactory/dfe-database": "1.1.*",
         "laravel/framework":         "5.2.*",
         "phpunit/phpunit":           "~4.0"
     },
